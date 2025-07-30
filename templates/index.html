@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PenziHalisi Dating Service</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="sticky-header">
+        <div class="header-left">
+            <span class="logo">Penzihalisi</span>
+        </div>
+        <nav class="header-tab-nav">
+            <a href="#home" class="tab active"><span>🏠</span><span class="tab-label">Home</span></a>
+            <a href="#profile" class="tab"><span>👤</span><span class="tab-label">Profile</span></a>
+            <a href="#match" class="tab"><span>🔍</span><span class="tab-label">Search</span></a>
+            <a href="#messages" class="tab"><span>💬</span><span class="tab-label">Messages</span></a>
+            <a href="#notifications" class="tab"><span>🔔</span><span class="tab-label">Notifications</span></a>
+        </nav>
+        <div class="header-right">
+            <span class="profile-icon" title="Profile">
+                <img src="/static/user-avatar.png" alt="User" style="width:36px;height:36px;border-radius:50%;border:2px solid #008000;vertical-align:middle;">
+                <span class="user-phone">+2547xxxxxxx</span>
+            </span>
+        </div>
+    </header>
+    <main>
+        <section id="registration">
+            <h3>User Registration</h3>
+            <form id="registrationForm" class="sticky-form-bar">
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="number" name="age" placeholder="Age" required>
+                <select name="gender" required>
+                    <option value="">Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                <select name="county" required>
+                    <option value="">County</option>
+                </select>
+                <input type="text" name="town" placeholder="Town" required>
+                <input type="text" name="number" placeholder="Phone Number" required>
+                <button type="submit">Register</button>
+            </form>
+            <div id="registrationResult"></div>
+        </section>
+        <section id="profile">
+            <h3>Profile Details Update</h3>
+            <form id="profileForm">
+                <select name="education" required>
+                    <option value="">Education Level</option>
+                    <option value="diploma">Diploma</option>
+                    <option value="certificate">Certificate</option>
+                    <option value="degree">Degree</option>
+                    <option value="masters">Masters</option>
+                    <option value="phd">PhD</option>
+                </select>
+                <input type="text" name="profession" placeholder="Profession" required>
+                <select name="marital" required>
+                    <option value="">Marital Status</option>
+                    <option value="single">Single</option>
+                    <option value="divorced">Divorced</option>
+                    <option value="widow">Widow</option>
+                    <option value="widower">Widower</option>
+                </select>
+                <input type="text" name="religion" placeholder="Religion" required>
+                <input type="text" name="ethnicity" placeholder="Ethnicity" required>
+                <input type="text" name="number" placeholder="Phone Number" required>
+                <button type="submit">Update Profile</button>
+            </form>
+            <div id="profileResult"></div>
+        </section>
+        <section id="description">
+            <h3>Self Description</h3>
+            <form id="descriptionForm">
+                <textarea name="description" placeholder="Describe yourself (MYSELF...)" required></textarea>
+                <input type="text" name="number" placeholder="Phone Number" required>
+                <button type="submit">Submit Description</button>
+            </form>
+            <div id="descriptionResult"></div>
+        </section>
+        <section id="match">
+            <h3>Find a Match</h3>
+            <form id="matchForm">
+                <input type="number" name="minAge" placeholder="Min Age" required>
+                <input type="number" name="maxAge" placeholder="Max Age" required>
+                <select name="county" required>
+                    <option value="">County</option>
+                </select>
+                <input type="text" name="number" placeholder="Phone Number" required>
+                <button type="submit">Search Match</button>
+            </form>
+            <div id="matchResult"></div>
+        </section>
+        <section id="messages">
+            <h3>Messages</h3>
+            <div id="conversation"></div>
+            <form id="messageForm" class="sticky-chat-bar">
+                <input type="text" name="message" placeholder="Type your message..." required>
+                <input type="text" name="number" placeholder="Phone Number" required>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 PenziHalisi. All rights reserved.</p>
+   
+    <script src="/static/app.js"></script>
+
+            <form id="messageForm">
