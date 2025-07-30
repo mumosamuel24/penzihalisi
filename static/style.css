@@ -1,0 +1,317 @@
+/* Kenyan Modern Dating App UI - PenziHalisi */
+
+:root {
+  --kenyan-green: #008000;
+  --kenyan-red: #e53935;
+  --kenyan-black: #222;
+  --kenyan-yellow: #ffcc00;
+  --primary: var(--kenyan-green);
+  --accent: var(--kenyan-yellow);
+  --danger: var(--kenyan-red);
+  --info: var(--kenyan-black);
+  --background: #fffaf5;
+  --light: #f0f0f0;
+  --border: #ddd;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', 'Open Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--kenyan-black);
+  min-height: 100vh;
+}
+
+/* Sticky Header Bar */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  border-bottom: 2px solid #eee;
+  padding: 0;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1.5rem 0.25rem 1.5rem;
+}
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, var(--kenyan-green) 25%, var(--kenyan-red) 50%, var(--kenyan-black) 75%, var(--kenyan-yellow) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+  justify-content: flex-end;
+}
+.user-phone {
+  font-weight: 600;
+  color: var(--kenyan-black);
+  margin-left: 0.5rem;
+}
+
+/* Header Tab Navigation */
+.header-tab-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.header-tab-nav .tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--kenyan-black);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.2s;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+}
+.header-tab-nav .tab.active {
+  color: var(--kenyan-green);
+  background: #f0f0f0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.header-tab-nav .tab-label {
+  font-size: 0.8rem;
+  margin-top: 2px;
+}
+
+/* Main Content */
+main {
+  max-width: 600px;
+  margin: 1.5rem auto 5rem auto;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+h3 {
+  color: var(--kenyan-green);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+/* Forms */
+form {
+  background: var(--light);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  margin-bottom: 1rem;
+}
+input, select, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0 1rem 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 1rem;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--kenyan-green);
+}
+label {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+input.error, select.error, textarea.error {
+  border-color: var(--danger);
+}
+.inline-error {
+  color: var(--danger);
+  font-size: 0.875rem;
+  margin-top: -0.5rem;
+}
+
+/* Buttons */
+button, .btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--kenyan-green);
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  font-family: inherit;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+button:disabled, .btn.disabled {
+  background: #ccc;
+  color: #888;
+  cursor: not-allowed;
+}
+button.loading::after {
+  content: '...';
+  animation: blink 1s infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+/* Progress Bar */
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #eee;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, var(--kenyan-green), var(--kenyan-yellow));
+  border-radius: 8px;
+  transition: width 0.3s;
+}
+
+/* Match Cards */
+.match-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.match-card h4 {
+  margin-bottom: 0.5rem;
+  color: var(--kenyan-green);
+}
+.match-card p {
+  font-size: 0.9rem;
+  color: #444;
+}
+.match-card button {
+  margin-top: 0.75rem;
+  background: var(--kenyan-black);
+}
+.match-count-banner {
+  background: var(--kenyan-green);
+  color: #fff;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+/* Chat & Messages */
+#conversation {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  background: var(--light);
+}
+#conversation div {
+  max-width: 80%;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 10px;
+  position: relative;
+  font-size: 0.95rem;
+}
+#conversation div.user {
+  background: var(--kenyan-green);
+  color: #fff;
+  margin-left: auto;
+  text-align: right;
+}
+#conversation div.system {
+  background: var(--kenyan-yellow);
+  color: var(--kenyan-black);
+  margin-right: auto;
+}
+#conversation div::after {
+  content: attr(data-time);
+  display: block;
+  font-size: 0.7rem;
+  margin-top: 0.25rem;
+  opacity: 0.7;
+}
+
+/* Toast Notifications */
+.toast {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--info);
+  color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  animation: fadeInOut 4s forwards;
+  z-index: 999;
+}
+@keyframes fadeInOut {
+  0% { opacity: 0; bottom: 0.5rem; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; bottom: 0rem; }
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 1rem;
+  color: #999;
+  margin-top: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 700px) {
+  main {
+    max-width: 100%;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .header-tab-nav {
+    gap: 1rem;
+    font-size: 0.95rem;
+  }
+  .logo {
+    font-size: 1.3rem;
+  }
+  .header-right, .header-left {
+    padding: 0.5rem;
+  }
+}
