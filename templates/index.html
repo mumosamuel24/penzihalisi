@@ -2,110 +2,1001 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PenziHalisi Dating Service</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/static/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PenziHalisi - SMS Dating</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        /* ─── HEADER ─── */
+        .header {
+            background: linear-gradient(135deg, #008000, #00a86b);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .header .phone-display {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        .header .login-status {
+            font-size: 0.75rem;
+            background: rgba(255,255,255,0.3);
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-left: 8px;
+        }
+
+        .header .login-status.registered {
+            background: rgba(0,255,0,0.3);
+        }
+
+        .header .login-status.unregistered {
+            background: rgba(255,0,0,0.3);
+        }
+
+        /* ─── LAYOUT ─── */
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 15px;
+            padding-bottom: 80px;
+        }
+
+        /* ─── PHONE INPUT ─── */
+        .phone-bar {
+            background: white;
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .phone-bar input {
+            flex: 1;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        .phone-bar input:focus {
+            border-color: #008000;
+        }
+
+        .phone-bar button {
+            background: #008000;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        /* ─── TABS ─── */
+        .tabs {
+            display: flex;
+            gap: 5px;
+            background: white;
+            border-radius: 12px;
+            padding: 5px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+            overflow-x: auto;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.2s;
+            white-space: nowrap;
+            min-width: 60px;
+        }
+
+        .tab.active {
+            background: #008000;
+            color: white;
+        }
+
+        .tab .tab-icon {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 2px;
+        }
+
+        /* ─── SECTIONS ─── */
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            color: #008000;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* ─── FORMS ─── */
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 4px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #008000;
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .btn {
+            background: #008000;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: #006600;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        /* ─── STEPPER ─── */
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e0e0e0;
+        }
+
+        .step-dot.active {
+            background: #008000;
+        }
+
+        .step-dot.completed {
+            background: #00a86b;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        /* ─── MATCH RESULTS ─── */
+        .match-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #008000;
+        }
+
+        .match-card h4 {
+            margin-bottom: 5px;
+        }
+
+        .match-card .match-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .match-card .match-actions button {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn-like {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-view {
+            background: #007bff;
+            color: white;
+        }
+
+        /* ─── CHAT ─── */
+        .chat-box {
+            height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            max-width: 80%;
+            font-size: 0.9rem;
+        }
+
+        .message.sent {
+            background: #008000;
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 2px;
+        }
+
+        .message.received {
+            background: white;
+            border: 1px solid #e0e0e0;
+            margin-right: auto;
+            border-bottom-left-radius: 2px;
+        }
+
+        .message .msg-time {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .chat-input input:focus {
+            border-color: #008000;
+        }
+
+        .chat-input button {
+            background: #008000;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* ─── RESPONSE DISPLAY ─── */
+        .response-box {
+            background: #f0f8f0;
+            border-left: 4px solid #008000;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+        }
+
+        .response-box.error {
+            background: #fff0f0;
+            border-left-color: #dc3545;
+        }
+
+        /* ─── LOADING ─── */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid #e0e0e0;
+            border-top: 3px solid #008000;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ─── FOOTER ─── */
+        .footer {
+            text-align: center;
+            padding: 15px;
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 400px) {
+            .app-container {
+                padding: 10px;
+                padding-bottom: 70px;
+            }
+            .tab {
+                font-size: 0.7rem;
+                padding: 8px 5px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header class="sticky-header">
-        <div class="header-left">
-            <span class="logo">Penzihalisi</span>
-        </div>
-        <nav class="header-tab-nav">
-            <a href="#home" class="tab active"><span>🏠</span><span class="tab-label">Home</span></a>
-            <a href="#profile" class="tab"><span>👤</span><span class="tab-label">Profile</span></a>
-            <a href="#match" class="tab"><span>🔍</span><span class="tab-label">Search</span></a>
-            <a href="#messages" class="tab"><span>💬</span><span class="tab-label">Messages</span></a>
-            <a href="#notifications" class="tab"><span>🔔</span><span class="tab-label">Notifications</span></a>
-        </nav>
-        <div class="header-right">
-            <span class="profile-icon" title="Profile">
-                <img src="/static/user-avatar.png" alt="User" style="width:36px;height:36px;border-radius:50%;border:2px solid #008000;vertical-align:middle;">
-                <span class="user-phone">+2547xxxxxxx</span>
-            </span>
-        </div>
-    </header>
-    <main>
-        <section id="registration">
-            <h3>User Registration</h3>
-            <form id="registrationForm" class="sticky-form-bar">
-                <input type="text" name="name" placeholder="Full Name" required>
-                <input type="number" name="age" placeholder="Age" required>
-                <select name="gender" required>
-                    <option value="">Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-                <select name="county" required>
-                    <option value="">County</option>
-                </select>
-                <input type="text" name="town" placeholder="Town" required>
-                <input type="text" name="number" placeholder="Phone Number" required>
-                <button type="submit">Register</button>
-            </form>
-            <div id="registrationResult"></div>
-        </section>
-        <section id="profile">
-            <h3>Profile Details Update</h3>
-            <form id="profileForm">
-                <select name="education" required>
-                    <option value="">Education Level</option>
-                    <option value="diploma">Diploma</option>
-                    <option value="certificate">Certificate</option>
-                    <option value="degree">Degree</option>
-                    <option value="masters">Masters</option>
-                    <option value="phd">PhD</option>
-                </select>
-                <input type="text" name="profession" placeholder="Profession" required>
-                <select name="marital" required>
-                    <option value="">Marital Status</option>
-                    <option value="single">Single</option>
-                    <option value="divorced">Divorced</option>
-                    <option value="widow">Widow</option>
-                    <option value="widower">Widower</option>
-                </select>
-                <input type="text" name="religion" placeholder="Religion" required>
-                <input type="text" name="ethnicity" placeholder="Ethnicity" required>
-                <input type="text" name="number" placeholder="Phone Number" required>
-                <button type="submit">Update Profile</button>
-            </form>
-            <div id="profileResult"></div>
-        </section>
-        <section id="description">
-            <h3>Self Description</h3>
-            <form id="descriptionForm">
-                <textarea name="description" placeholder="Describe yourself (MYSELF...)" required></textarea>
-                <input type="text" name="number" placeholder="Phone Number" required>
-                <button type="submit">Submit Description</button>
-            </form>
-            <div id="descriptionResult"></div>
-        </section>
-        <section id="match">
-            <h3>Find a Match</h3>
-            <form id="matchForm">
-                <input type="number" name="minAge" placeholder="Min Age" required>
-                <input type="number" name="maxAge" placeholder="Max Age" required>
-                <select name="county" required>
-                    <option value="">County</option>
-                </select>
-                <input type="text" name="number" placeholder="Phone Number" required>
-                <button type="submit">Search Match</button>
-            </form>
-            <div id="matchResult"></div>
-        </section>
-        <section id="messages">
-            <h3>Messages</h3>
-            <div id="conversation"></div>
-            <form id="messageForm" class="sticky-chat-bar">
-                <input type="text" name="message" placeholder="Type your message..." required>
-                <input type="text" name="number" placeholder="Phone Number" required>
-                <button type="submit">Send</button>
-            </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 PenziHalisi. All rights reserved.</p>
-   
-    <script src="/static/app.js"></script>
 
-            <form id="messageForm">
+    <!-- HEADER -->
+    <div class="header">
+        <h1>🌿 PenziHalisi</h1>
+        <div style="display: flex; align-items: center;">
+            <div class="phone-display" id="headerPhone">+254 712 345 678</div>
+            <div class="login-status unregistered" id="loginStatus">Not Registered</div>
+        </div>
+    </div>
+
+    <!-- MAIN APP -->
+    <div class="app-container">
+
+        <!-- Phone Number Bar -->
+        <div class="phone-bar">
+            <input type="text" id="phoneNumber" placeholder="Enter phone number..." value="0712345678">
+            <button onclick="setPhone()">Set</button>
+            <button onclick="checkLoginStatus()" style="margin-left: 8px; background: #007bff;">Check Status</button>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('home', this)">
+                <span class="tab-icon">🏠</span> Home
+            </div>
+            <div class="tab" onclick="switchTab('register', this)">
+                <span class="tab-icon">📝</span> Register
+            </div>
+            <div class="tab" onclick="switchTab('search', this)">
+                <span class="tab-icon">🔍</span> Search
+            </div>
+            <div class="tab" onclick="switchTab('chat', this)">
+                <span class="tab-icon">💬</span> Chat
+            </div>
+            <div class="tab" onclick="switchTab('inbox', this)">
+                <span class="tab-icon">📥</span> Inbox
+            </div>
+        </div>
+
+        <!-- Loading -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Sending command...</p>
+        </div>
+
+        <!-- ===== HOME SECTION ===== -->
+        <div class="section active" id="section-home">
+            <div class="card">
+                <h3>Welcome to PenziHalisi</h3>
+                <p style="color: #666; margin-bottom: 15px;">
+                    Find your perfect match via SMS. Use the tabs below to navigate.
+                </p>
+                <div style="background: #f0f8f0; padding: 12px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 15px;">
+                    <strong>How to Login:</strong><br>
+                    • Enter your registered phone number above<br>
+                    • Click "Set" then "Check Status" to verify registration<br>
+                    • Green "Registered" badge = you're logged in and ready to use the service
+                </div>
+                <div style="background: #f0f8f0; padding: 12px; border-radius: 8px; font-size: 0.85rem;">
+                    <strong>Quick Commands:</strong><br>
+                    • <code>penzi</code> - Start registration<br>
+                    • <code>match#20-30#Nairobi</code> - Find matches<br>
+                    • <code>inbox</code> - Check messages<br>
+                    • <code>describe [phone]</code> - View profile
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Send Command</h3>
+                <div class="form-group">
+                    <input type="text" id="quickCommand" placeholder="Enter command (e.g., penzi, inbox, match#20-30#Nairobi)">
+                </div>
+                <button class="btn" onclick="sendQuickCommand()">Send Command</button>
+                <div id="quickResponse" class="response-box" style="display:none;"></div>
+            </div>
+        </div>
+
+        <!-- ===== REGISTER SECTION ===== -->
+        <div class="section" id="section-register">
+            <div class="card">
+                <h3>Step <span id="stepNumber">1</span> of 4</h3>
+                <div class="step-indicator">
+                    <div class="step-dot active" id="stepDot1"></div>
+                    <div class="step-dot" id="stepDot2"></div>
+                    <div class="step-dot" id="stepDot3"></div>
+                    <div class="step-dot" id="stepDot4"></div>
+                </div>
+
+                <!-- Step 1: Initial Registration -->
+                <div class="form-step active" id="step1">
+                    <p style="color: #666; margin-bottom: 15px;">Start by sending the "penzi" command</p>
+                    <button class="btn" onclick="sendPenzi()">Send "penzi"</button>
+                    <div id="penziResponse" class="response-box" style="display:none;"></div>
+                </div>
+
+                <!-- Step 2: Start Registration -->
+                <div class="form-step" id="step2">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="regName" placeholder="e.g., John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" id="regAge" placeholder="e.g., 25">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select id="regGender">
+                            <option value="">Select gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>County</label>
+                        <input type="text" id="regCounty" placeholder="e.g., Nairobi">
+                    </div>
+                    <div class="form-group">
+                        <label>Town</label>
+                        <input type="text" id="regTown" placeholder="e.g., CBD">
+                    </div>
+                    <button class="btn" onclick="sendStart()">Next →</button>
+                    <div id="startResponse" class="response-box" style="display:none;"></div>
+                </div>
+
+                <!-- Step 3: Details -->
+                <div class="form-step" id="step3">
+                    <div class="form-group">
+                        <label>Education Level</label>
+                        <select id="regEducation">
+                            <option value="">Select education</option>
+                            <option value="diploma">Diploma</option>
+                            <option value="certificate">Certificate</option>
+                            <option value="degree">Degree</option>
+                            <option value="masters">Masters</option>
+                            <option value="phd">PhD</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Profession</label>
+                        <input type="text" id="regProfession" placeholder="e.g., Engineer">
+                    </div>
+                    <div class="form-group">
+                        <label>Marital Status</label>
+                        <select id="regMarital">
+                            <option value="">Select status</option>
+                            <option value="single">Single</option>
+                            <option value="divorced">Divorced</option>
+                            <option value="widow">Widow</option>
+                            <option value="widower">Widower</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Religion</label>
+                        <input type="text" id="regReligion" placeholder="e.g., Christian">
+                    </div>
+                    <div class="form-group">
+                        <label>Ethnicity</label>
+                        <input type="text" id="regEthnicity" placeholder="e.g., Kikuyu">
+                    </div>
+                    <button class="btn" onclick="sendDetails()">Next →</button>
+                    <button class="btn btn-secondary" onclick="prevStep(2)" style="margin-top: 8px;">← Back</button>
+                    <div id="detailsResponse" class="response-box" style="display:none;"></div>
+                </div>
+
+                <!-- Step 4: Description -->
+                <div class="form-step" id="step4">
+                    <div class="form-group">
+                        <label>Describe yourself</label>
+                        <textarea id="regDescription" placeholder="e.g., I love hiking, reading books, and exploring new places. I'm looking for someone who shares similar interests."></textarea>
+                    </div>
+                    <button class="btn" onclick="sendMyself()">Complete Registration</button>
+                    <button class="btn btn-secondary" onclick="prevStep(3)" style="margin-top: 8px;">← Back</button>
+                    <div id="myselfResponse" class="response-box" style="display:none;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SEARCH SECTION ===== -->
+        <div class="section" id="section-search">
+            <div class="card">
+                <h3>Find Matches</h3>
+                <div class="form-group">
+                    <label>Minimum Age</label>
+                    <input type="number" id="searchMinAge" placeholder="e.g., 18" value="18">
+                </div>
+                <div class="form-group">
+                    <label>Maximum Age</label>
+                    <input type="number" id="searchMaxAge" placeholder="e.g., 35" value="35">
+                </div>
+                <div class="form-group">
+                    <label>County</label>
+                    <input type="text" id="searchCounty" placeholder="e.g., Nairobi">
+                </div>
+                <button class="btn" onclick="searchMatches()">Search Matches</button>
+                <div id="searchResponse" class="response-box" style="display:none;"></div>
+                <div id="matchResults" style="margin-top: 15px;"></div>
+            </div>
+        </div>
+
+        <!-- ===== CHAT SECTION ===== -->
+        <div class="section" id="section-chat">
+            <div class="card">
+                <h3>Send Message</h3>
+                <div class="form-group">
+                    <label>Recipient (phone number)</label>
+                    <input type="text" id="chatRecipient" placeholder="e.g., 0712345678">
+                </div>
+                <div class="chat-box" id="chatBox">
+                    <p style="color: #999; text-align: center;">Start a conversation</p>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="chatMessage" placeholder="Type your message...">
+                    <button onclick="sendChatMessage()">Send</button>
+                </div>
+                <div id="chatResponse" class="response-box" style="display:none;"></div>
+            </div>
+        </div>
+
+        <!-- ===== INBOX SECTION ===== -->
+        <div class="section" id="section-inbox">
+            <div class="card">
+                <h3>Your Inbox</h3>
+                <button class="btn" onclick="checkInbox()">Check Inbox</button>
+                <div id="inboxResponse" class="response-box" style="display:none;"></div>
+                <div id="inboxMessages" style="margin-top: 15px;"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p>PenziHalisi © 2026 | SMS Dating Service</p>
+    </div>
+
+    <script>
+        // ─── STATE ───
+        let currentStep = 1;
+        let currentTab = 'home';
+        let phoneNumber = '0712345678';
+
+        // ─── PHONE ───
+        function setPhone() {
+            phoneNumber = document.getElementById('phoneNumber').value;
+            document.getElementById('headerPhone').textContent = formatPhone(phoneNumber);
+            checkLoginStatus();
+        }
+
+        function formatPhone(num) {
+            if (num.startsWith('0')) return '+254 ' + num.slice(1, 4) + ' ' + num.slice(4, 7) + ' ' + num.slice(7);
+            return num;
+        }
+
+        async function checkLoginStatus() {
+            const result = await sendCommand('status');
+            const statusEl = document.getElementById('loginStatus');
+
+            if (result.response) {
+                if (result.response.includes('registered') || result.response.includes('You are now registered') || result.response.includes('You are fully registered')) {
+                    statusEl.textContent = 'Registered';
+                    statusEl.className = 'login-status registered';
+                } else if (result.response.includes('not registered') || result.response.includes('please register first') || result.response.includes('Invalid number')) {
+                    statusEl.textContent = 'Not Registered';
+                    statusEl.className = 'login-status unregistered';
+                } else {
+                    statusEl.textContent = 'Checking...';
+                    statusEl.className = 'login-status';
+                }
+            } else {
+                statusEl.textContent = 'Error';
+                statusEl.className = 'login-status unregistered';
+            }
+        }
+
+        // ─── TABS ───
+        function switchTab(tabId, element) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+
+            element.classList.add('active');
+            document.getElementById('section-' + tabId).classList.add('active');
+            currentTab = tabId;
+        }
+
+        // ─── LOADING ───
+        function showLoading(show) {
+            document.getElementById('loading').classList.toggle('active', show);
+        }
+
+        // ─── API CALL ───
+        async function sendCommand(command) {
+            showLoading(true);
+            try {
+                const response = await fetch('/api/message', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        number: phoneNumber,
+                        message: command
+                    })
+                });
+                const data = await response.json();
+                showLoading(false);
+                return data;
+            } catch (error) {
+                showLoading(false);
+                return { error: 'Network error. Please try again.' };
+            }
+        }
+
+        function showResponse(elementId, message, isError = false) {
+            const el = document.getElementById(elementId);
+            el.textContent = message;
+            el.style.display = 'block';
+            el.className = 'response-box' + (isError ? ' error' : '');
+        }
+
+        // ─── QUICK COMMAND ───
+        async function sendQuickCommand() {
+            const cmd = document.getElementById('quickCommand').value;
+            if (!cmd) return;
+
+            const result = await sendCommand(cmd);
+            if (result.response) {
+                showResponse('quickResponse', result.response);
+            } else if (result.error) {
+                showResponse('quickResponse', result.error, true);
+            }
+        }
+
+        // ─── REGISTRATION STEPS ───
+        function updateSteps(step) {
+            currentStep = step;
+            document.getElementById('stepNumber').textContent = step;
+
+            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + step).classList.add('active');
+
+            document.querySelectorAll('.step-dot').forEach((dot, i) => {
+                dot.classList.remove('active', 'completed');
+                if (i + 1 === step) dot.classList.add('active');
+                else if (i + 1 < step) dot.classList.add('completed');
+            });
+        }
+
+        function prevStep(step) {
+            updateSteps(step);
+        }
+
+        async function sendPenzi() {
+            const result = await sendCommand('penzi');
+            if (result.response) {
+                showResponse('penziResponse', result.response);
+                updateSteps(2);
+            } else if (result.error) {
+                showResponse('penziResponse', result.error, true);
+            }
+        }
+
+        async function sendStart() {
+            const name = document.getElementById('regName').value;
+            const age = document.getElementById('regAge').value;
+            const gender = document.getElementById('regGender').value;
+            const county = document.getElementById('regCounty').value;
+            const town = document.getElementById('regTown').value;
+
+            if (!name || !age || !gender || !county || !town) {
+                showResponse('startResponse', 'Please fill in all fields', true);
+                return;
+            }
+
+            const command = `start#${name}#${age}#${gender}#${county}#${town}`;
+            const result = await sendCommand(command);
+            if (result.response) {
+                showResponse('startResponse', result.response);
+                updateSteps(3);
+            } else if (result.error) {
+                showResponse('startResponse', result.error, true);
+            }
+        }
+
+        async function sendDetails() {
+            const education = document.getElementById('regEducation').value;
+            const profession = document.getElementById('regProfession').value;
+            const marital = document.getElementById('regMarital').value;
+            const religion = document.getElementById('regReligion').value;
+            const ethnicity = document.getElementById('regEthnicity').value;
+
+            if (!education || !profession || !marital || !religion || !ethnicity) {
+                showResponse('detailsResponse', 'Please fill in all fields', true);
+                return;
+            }
+
+            const command = `details#${education}#${profession}#${marital}#${religion}#${ethnicity}`;
+            const result = await sendCommand(command);
+            if (result.response) {
+                showResponse('detailsResponse', result.response);
+                updateSteps(4);
+            } else if (result.error) {
+                showResponse('detailsResponse', result.error, true);
+            }
+        }
+
+        async function sendMyself() {
+            const description = document.getElementById('regDescription').value;
+            if (!description) {
+                showResponse('myselfResponse', 'Please write a description about yourself', true);
+                return;
+            }
+
+            const command = `myself ${description}`;
+            const result = await sendCommand(command);
+            if (result.response) {
+                showResponse('myselfResponse', result.response);
+                document.getElementById('regDescription').value = '';
+                // Switch to home after completion
+                setTimeout(() => {
+                    switchTab('home', document.querySelector('.tab'));
+                }, 2000);
+            } else if (result.error) {
+                showResponse('myselfResponse', result.error, true);
+            }
+        }
+
+        // ─── SEARCH ───
+        async function searchMatches() {
+            const minAge = document.getElementById('searchMinAge').value;
+            const maxAge = document.getElementById('searchMaxAge').value;
+            const county = document.getElementById('searchCounty').value;
+
+            if (!minAge || !maxAge || !county) {
+                showResponse('searchResponse', 'Please fill in all fields', true);
+                return;
+            }
+
+            const command = `match#${minAge}-${maxAge}#${county}`;
+            const result = await sendCommand(command);
+
+            if (result.response) {
+                showResponse('searchResponse', result.response);
+                // Parse and display matches
+                displayMatches(result.response);
+            } else if (result.error) {
+                showResponse('searchResponse', result.error, true);
+            }
+        }
+
+        function displayMatches(response) {
+            const container = document.getElementById('matchResults');
+            container.innerHTML = '';
+
+            // Simple parsing - adjust based on your actual response format
+            const lines = response.split('\n');
+            let currentMatch = null;
+
+            lines.forEach(line => {
+                if (line.includes('aged') && line.includes(',')) {
+                    // Parse match info like "John aged 25, Nairobi"
+                    const parts = line.split(' aged ');
+                    if (parts.length === 2) {
+                        const name = parts[0].trim();
+                        const rest = parts[1].split(', ');
+                        if (rest.length >= 2) {
+                            const age = rest[0].trim();
+                            const location = rest[1].trim();
+                            createMatchCard({ name, age, location });
+                        }
+                    }
+                }
+            });
+
+            if (container.children.length === 0) {
+                container.innerHTML = '<p style="color: #666;">No matches found. Try different criteria.</p>';
+            }
+        }
+
+        function createMatchCard(match) {
+            const container = document.getElementById('matchResults');
+            const card = document.createElement('div');
+            card.className = 'match-card';
+            card.innerHTML = `
+                <h4>${match.name || 'Unknown'} <span style="font-weight: normal; color: #666;">${match.age || '?'} yrs</span></h4>
+                <p style="color: #666; font-size: 0.85rem;">📍 ${match.location || 'Unknown'}</p>
+                <div class="match-actions">
+                    <button class="btn-like" onclick="expressInterest('${match.name}')">❤️ Like</button>
+                    <button class="btn-view" onclick="viewProfile('${match.name}')">👤 View</button>
+                </div>
+            `;
+            container.appendChild(card);
+        }
+
+        async function expressInterest(name) {
+            // For now, just show a message - backend needs to handle this
+            showResponse('searchResponse', `Interest expressed in ${name}`);
+        }
+
+        async function viewProfile(name) {
+            const command = `describe ${name}`;
+            const result = await sendCommand(command);
+            if (result.response) {
+                showResponse('searchResponse', result.response);
+            }
+        }
+
+        // ─── CHAT ───
+        async function sendChatMessage() {
+            const recipient = document.getElementById('chatRecipient').value;
+            const message = document.getElementById('chatMessage').value;
+
+            if (!recipient || !message) return;
+
+            // For now, simulate sending - backend needs to handle actual messaging
+            const chatBox = document.getElementById('chatBox');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'message sent';
+            msgDiv.innerHTML = `
+                <strong>You → ${recipient}</strong><br>
+                ${message}
+                <div class="msg-time">${new Date().toLocaleTimeString()}</div>
+            `;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            document.getElementById('chatMessage').value = '';
+
+            showResponse('chatResponse', 'Message sent (simulated)');
+        }
+
+        // ─── INBOX ───
+        async function checkInbox() {
+            const result = await sendCommand('inbox');
+            if (result.response) {
+                showResponse('inboxResponse', result.response);
+
+                const container = document.getElementById('inboxMessages');
+                container.innerHTML = `<div style="background: #f9f9f9; padding: 12px; border-radius: 8px; white-space: pre-wrap;">${result.response}</div>`;
+            } else if (result.error) {
+                showResponse('inboxResponse', result.error, true);
+            }
+        }
+
+        // ─── INIT ───
+        document.addEventListener('DOMContentLoaded', function() {
+            setPhone();
+            checkLoginStatus();
+
+            // Enter key handlers
+            document.getElementById('quickCommand').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') sendQuickCommand();
+            });
+
+            document.getElementById('chatMessage').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') sendChatMessage();
+            });
+        });
+    </script>
+
+</body>
+</html>

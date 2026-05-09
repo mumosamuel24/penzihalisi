@@ -2,10 +2,10 @@ import mysql.connector
 from datetime import datetime
 mydb = mysql.connector.connect(
   host="localhost",
-  user="root",
+  user="penzi_user",
   database="penzi",
   port=3306,
-  password=""
+  password="Fuckit.com@26"
 )
 
 

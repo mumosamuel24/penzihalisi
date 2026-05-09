@@ -332,6 +332,15 @@ your dreams.
 E.g., match#23-25#Nairobi"""
         insert_message(sender="22141", receiver=valid_number, message=response)
         return response
+    if message.lower() == "status":
+        if user_exists:
+            if len(user_details) == 1 and len(user_details[0]) == 11:
+                response = "You are fully registered for dating."
+            else:
+                response = "You are partially registered. Please complete your registration."
+        else:
+            response = "You are not registered. Please register first."
+        return response
     return "please check if the number or the message you have entered is in the correct format"
 
 # print(get_number_of_matches("match#23-25#nairobi","female"))
